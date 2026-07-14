@@ -1,0 +1,9 @@
+{
+  "name": "NEXO V4 — Wealth Management",
+  "short_name": "NEXO V4",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "description": "Gestão de patrimônio, contas, finanças e rotina."
+}

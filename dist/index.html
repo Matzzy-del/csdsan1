@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>NEXO V4 — Wealth Management Cloud</title>
+  <link rel="manifest" href="/assets/manifest-CObD1Ok4.json">
+  <script type="module" crossorigin src="/assets/index-CfsRW6lL.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DXhssg8m.css">
+</head>
+<body>
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-panel glass">
+      <div class="auth-brand"><div class="brand-symbol">N</div><div><strong>NEXO</strong><span>Wealth Management Cloud</span></div></div>
+      <p class="eyebrow">Acesso seguro</p>
+      <h1 id="authTitle">Entrar na sua conta</h1>
+      <p id="authSubtitle" class="auth-subtitle">Seus dados ficam sincronizados no Supabase e disponíveis em qualquer aparelho.</p>
+      <div class="auth-tabs"><button id="showLogin" class="auth-tab active" type="button">Entrar</button><button id="showSignup" class="auth-tab" type="button">Criar conta</button></div>
+      <form id="authForm" class="auth-form">
+        <label>E-mail<input id="authEmail" type="email" autocomplete="email" required placeholder="seu@email.com"></label>
+        <label>Senha<input id="authPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="Mínimo de 6 caracteres"></label>
+        <button id="authSubmit" class="primary-button full" type="submit">Entrar</button>
+      </form>
+      <button id="forgotPassword" class="text-button" type="button">Esqueci minha senha</button>
+      <div id="authMessage" class="auth-message" aria-live="polite"></div>
+      <div id="configWarning" class="config-warning hidden">As variáveis do Supabase ainda não foram configuradas na Vercel.</div>
+    </div>
+  </section>
+
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <div id="appShell" class="app-shell app-hidden">
+    <aside class="sidebar glass">
+      <div class="brand">
+        <div class="brand-symbol">N</div>
+        <div class="brand-copy">
+          <strong>NEXO</strong>
+          <span>Wealth Management</span>
+        </div>
+      </div>
+
+      <div class="version-card">
+        <span class="live-dot"></span>
+        <div>
+          <strong>V4 Cloud</strong>
+          <small id="sidebarSyncStatus">Conectando...</small>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">⌂</span><span>Visão geral</span></button>
+        <button class="nav-item" data-page="finances"><span class="nav-icon">$</span><span>Finanças</span></button>
+        <button class="nav-item" data-page="accounts"><span class="nav-icon">◈</span><span>Contas</span></button>
+        <button class="nav-item" data-page="wealth"><span class="nav-icon">↗</span><span>Patrimônio</span></button>
+        <button class="nav-item" data-page="routine"><span class="nav-icon">✓</span><span>Rotina</span></button>
+        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span><span>Ajustes</span></button>
+      </nav>
+
+      <div class="sidebar-note">
+        <span>Regra principal</span>
+        <strong>Caixa não é patrimônio. Patrimônio não é dinheiro livre.</strong>
+      </div>
+
+      <button id="themeToggle" class="ghost-button full">Alternar tema</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sistema financeiro pessoal</p>
+          <h1 id="pageTitle">Visão geral</h1>
+        </div>
+        <div class="topbar-actions"><span id="topSyncStatus" class="sync-badge">Nuvem</span><button id="quickAdd" class="primary-button">+ Novo lançamento</button></div>
+      </header>
+
+      <section id="dashboard" class="page active">
+        <article class="wealth-hero glass">
+          <div class="wealth-hero-copy">
+            <span class="status-pill">NEXO V4 · WEALTH MANAGEMENT</span>
+            <p>Patrimônio líquido</p>
+            <h2 id="heroNetWorth">R$ 0,00</h2>
+            <div class="hero-delta" id="heroGrowth">Sem comparação mensal</div>
+          </div>
+          <div class="hero-breakdown">
+            <div><span>Dinheiro livre</span><strong id="heroFreeCash">R$ 0,00</strong></div>
+            <div><span>Reservado</span><strong id="heroReserved">R$ 0,00</strong></div>
+            <div><span>Investido/preso</span><strong id="heroInvested">R$ 0,00</strong></div>
+            <div><span>Dívidas</span><strong id="heroDebts">R$ 0,00</strong></div>
+          </div>
+        </article>
+
+        <div class="metrics-grid five">
+          <article class="metric glass"><span>Dinheiro mapeado</span><strong id="metricCash">R$ 0,00</strong><small>Contas e caixas</small></article>
+          <article class="metric glass"><span>Ativos</span><strong id="metricAssets">R$ 0,00</strong><small>Bens fora das contas</small></article>
+          <article class="metric glass"><span>Dívidas</span><strong id="metricDebts">R$ 0,00</strong><small>Saldo devedor atual</small></article>
+          <article class="metric glass"><span>Resultado do mês</span><strong id="metricMonthResult">R$ 0,00</strong><small>Receitas menos despesas</small></article>
+          <article class="metric glass"><span>Meta patrimonial</span><strong id="metricGoal">—</strong><small id="metricGoalHint">Configure sua meta</small></article>
+        </div>
+
+        <div class="layout-two wide-left">
+          <article class="panel glass">
+            <div class="panel-header"><div><p class="eyebrow">Composição</p><h3>Onde seu patrimônio está</h3></div><button class="text-button" data-page-jump="wealth">Gerenciar</button></div>
+            <div id="wealthComposition" class="composition-list"></div>
+          </article>
+          <article class="panel glass">
+            <div class="panel-header"><div><p class="eyebrow">Liquidez</p><h3>Livre, reservado e preso</h3></div></div>
+            <div id="liquidityRing" class="liquidity-card"></div>
+          </article>
+        </div>
+
+        <div class="layout-two">
+          <article class="panel glass">
+            <div class="panel-header"><div><p class="eyebrow">Localização</p><h3>Principais contas</h3></div><button class="text-button" data-page-jump="accounts">Ver contas</button></div>
+            <div id="dashboardAccounts" class="stack empty">Nenhuma conta cadastrada.</div>
+          </article>
+          <article class="panel glass">
+            <div class="panel-header"><div><p class="eyebrow">Diagnóstico</p><h3>Alertas importantes</h3></div></div>
+            <div id="dashboardAlerts" class="stack"></div>
+          </article>
+        </div>
+
+        <div class="layout-two wide-left">
+          <article class="panel glass">
+            <div class="panel-header"><div><p class="eyebrow">Evolução</p><h3>Histórico patrimonial</h3></div><button class="text-button" data-page-jump="wealth">Salvar fotografia</button></div>
+            <div id="dashboardHistory" class="history-chart"></div>
+          </article>
+          <article class="panel glass">
+            <div class="panel-header"><div><p class="eyebrow">Meta</p><h3>Progresso patrimonial</h3></div></div>
+            <div id="dashboardGoal" class="goal-overview"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="finances" class="page">
+        <div class="section-intro glass">
+          <div><p class="eyebrow">Fluxo financeiro</p><h2>Entradas, saídas e limites</h2><p>Categorias e orçamento ficam na mesma tela para evitar navegação desnecessária.</p></div>
+          <div class="button-row"><button id="manageCategoriesBtn" class="ghost-button">Gerenciar categorias</button><button id="addCategoryBtn" class="ghost-button">+ Categoria</button><button id="addTransactionBtn" class="primary-button">+ Lançamento</button></div>
+        </div>
+
+        <div class="metrics-grid four">
+          <article class="metric glass"><span>Receitas no mês</span><strong id="financeIncome">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Despesas no mês</span><strong id="financeExpense">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Resultado líquido</span><strong id="financeResult">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Orçamento usado</span><strong id="financeBudgetRate">0%</strong></article>
+        </div>
+
+        <article class="panel glass">
+          <div class="panel-header wrap">
+            <div><p class="eyebrow">Histórico</p><h3>Lançamentos</h3></div>
+            <div class="filters">
+              <input id="financeMonth" type="month">
+              <select id="financeTypeFilter"><option value="all">Todos os tipos</option><option value="income">Receitas</option><option value="expense">Despesas</option></select>
+              <select id="financeAreaFilter"><option value="all">Todas as áreas</option><option>Pessoal</option><option>Revenda de carros</option><option>Impressão 3D</option></select>
+              <select id="financeCategoryFilter"><option value="all">Todas as categorias</option></select>
+              <select id="financeAccountFilter"><option value="all">Todas as contas</option></select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Data e hora</th><th>Descrição</th><th>Categoria</th><th>Conta</th><th>Tipo</th><th>Valor</th><th></th></tr></thead>
+              <tbody id="transactionsTable"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <div class="section-heading"><div><p class="eyebrow">Orçamento mensal</p><h2>Caixas por categoria</h2></div><div class="filters"><input id="budgetMonth" type="month"><select id="budgetAreaFilter"><option value="all">Todas as áreas</option><option>Pessoal</option><option>Revenda de carros</option><option>Impressão 3D</option></select></div></div>
+        <div id="budgetGrid" class="card-grid three"></div>
+      </section>
+
+      <section id="accounts" class="page">
+        <div class="section-intro glass">
+          <div><p class="eyebrow">Mapa do dinheiro</p><h2>Onde cada parte está</h2><p>Transferências mudam a localização do dinheiro, mas não alteram lucro ou despesas.</p></div>
+          <div class="button-row"><button id="transferMoneyBtn" class="ghost-button">↔ Transferir</button><button id="addAccountBtn" class="primary-button">+ Conta ou caixa</button></div>
+        </div>
+
+        <div class="metrics-grid four">
+          <article class="metric glass"><span>Total mapeado</span><strong id="accountsTotal">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Pessoal</span><strong id="accountsPersonal">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Revenda de carros</span><strong id="accountsCars">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Impressão 3D</span><strong id="accounts3d">R$ 0,00</strong></article>
+        </div>
+
+        <div class="section-heading"><div><p class="eyebrow">Saldos atuais</p><h2>Contas e caixas</h2></div><p id="unassignedWarning" class="warning-text"></p></div>
+        <div id="accountsGrid" class="card-grid three"></div>
+
+        <div class="layout-two wide-left top-gap">
+          <article class="panel glass"><div class="panel-header"><div><p class="eyebrow">Distribuição</p><h3>Percentual por conta</h3></div></div><div id="accountDistribution" class="distribution-list"></div></article>
+          <article class="panel glass"><div class="panel-header"><div><p class="eyebrow">Movimentação interna</p><h3>Transferências recentes</h3></div></div><div id="transfersList" class="stack empty">Nenhuma transferência.</div></article>
+        </div>
+      </section>
+
+      <section id="wealth" class="page">
+        <div class="section-intro glass">
+          <div><p class="eyebrow">Wealth management</p><h2>Patrimônio líquido e crescimento</h2><p>Contas são dinheiro. Ativos são bens. Dívidas reduzem o patrimônio. Não misture os três.</p></div>
+          <div class="button-row"><button id="saveSnapshotBtn" class="ghost-button">Salvar fotografia</button><button id="setWealthGoalBtn" class="ghost-button">Definir meta</button><button id="addDebtBtn" class="ghost-button">+ Dívida</button><button id="addAssetBtn" class="primary-button">+ Ativo</button></div>
+        </div>
+
+        <div class="metrics-grid five">
+          <article class="metric glass"><span>Patrimônio líquido</span><strong id="wealthNetWorth">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Dinheiro</span><strong id="wealthCash">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Ativos</span><strong id="wealthAssets">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Dívidas</span><strong id="wealthDebts">R$ 0,00</strong></article>
+          <article class="metric glass"><span>Variação acumulada</span><strong id="wealthVariation">—</strong></article>
+        </div>
+
+        <div class="section-heading"><div><p class="eyebrow">Bens e capital preso</p><h2>Ativos</h2></div></div>
+        <div id="assetsGrid" class="card-grid three"></div>
+
+        <div class="section-heading"><div><p class="eyebrow">Obrigações</p><h2>Dívidas</h2></div></div>
+        <div id="debtsGrid" class="card-grid three"></div>
+
+        <div class="layout-two wide-left top-gap">
+          <article class="panel glass"><div class="panel-header"><div><p class="eyebrow">Fotografias mensais</p><h3>Evolução do patrimônio</h3></div></div><div id="wealthHistory" class="history-chart large"></div><div id="snapshotList" class="snapshot-list"></div></article>
+          <article class="panel glass"><div class="panel-header"><div><p class="eyebrow">Estimativas</p><h3>Projeções</h3></div></div><div id="projectionGrid" class="projection-grid"></div><div id="wealthGoalPanel" class="goal-overview top-gap-small"></div></article>
+        </div>
+      </section>
+
+      <section id="routine" class="page">
+        <div class="section-intro glass">
+          <div><p class="eyebrow">Organização</p><h2>Execução diária</h2><p>Sem gamificação inútil: apenas tarefas, prioridade e prazo.</p></div>
+          <button id="addTaskBtn" class="primary-button">+ Nova tarefa</button>
+        </div>
+        <div class="filters-bar glass"><select id="taskStatusFilter"><option value="all">Todas</option><option value="pending">Pendentes</option><option value="done">Concluídas</option></select><select id="taskCategoryFilter"><option value="all">Todas as áreas</option><option>Pessoal</option><option>Escola</option><option>Oficina</option><option>Revenda de carros</option><option>Impressão 3D</option></select></div>
+        <div class="layout-two">
+          <article class="panel glass"><div class="panel-header"><div><p class="eyebrow">A fazer</p><h3>Pendentes</h3></div></div><div id="pendingTasks" class="stack empty">Nenhuma tarefa pendente.</div></article>
+          <article class="panel glass"><div class="panel-header"><div><p class="eyebrow">Finalizadas</p><h3>Concluídas</h3></div></div><div id="doneTasks" class="stack empty">Nenhuma tarefa concluída.</div></article>
+        </div>
+      </section>
+
+      <section id="settings" class="page">
+        <div class="settings-grid">
+          <article class="panel glass settings-card"><div><p class="eyebrow">Aparência</p><h3>Tema</h3><p>O tema também pode ser alterado pela barra lateral.</p></div><button id="themeToggleSettings" class="ghost-button">Alternar claro/escuro</button></article>
+          <article class="panel glass settings-card"><div><p class="eyebrow">Conta e nuvem</p><h3 id="cloudUserEmail">Conta conectada</h3><p id="cloudSyncDetails">Carregando status da sincronização...</p></div><div class="button-row"><button id="syncNow" class="ghost-button">Sincronizar agora</button><button id="logoutBtn" class="ghost-button">Sair</button></div></article>
+          <article class="panel glass settings-card"><div><p class="eyebrow">Backup manual</p><h3>Exportar ou importar</h3><p>A nuvem é automática, mas o arquivo JSON funciona como cópia extra de segurança.</p></div><div class="button-row"><button id="exportData" class="ghost-button">Exportar</button><label class="ghost-button file-button">Importar<input id="importData" type="file" accept=".json" hidden></label></div></article>
+          <article class="panel glass settings-card danger-zone"><div><p class="eyebrow">Zona de risco</p><h3>Zerar aplicativo</h3><p>Apaga os dados locais e também substitui os dados da nuvem pela estrutura inicial.</p></div><button id="clearData" class="danger-button">Apagar tudo</button></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden"><div id="modal" class="modal glass"></div></div>
+</body>
+</html>
